@@ -13,3 +13,10 @@ mySecondFilter f [] = []
 mySecondFilter f (x:xs)
     | f x = x : mySecondFilter f xs
     | otherwise = mySecondFilter f xs
+
+-- IO tricks --
+
+act :: IO (Char,Char)
+act = do x <- getChar
+         y <- getChar
+         return (x,y) 
