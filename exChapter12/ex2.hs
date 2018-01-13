@@ -6,5 +6,5 @@
 
 instance Functor ((->) r) where
     -- fmap :: (a -> b) -> (r -> a) -> (r -> b)
-    fmap f g = (.)
-    -- or fmap f g = (\x -> f (g x)) 
+    fmap f g = f . g
+    -- or fmap f g = (\x -> f (g x)) or fmap f g = (.)
