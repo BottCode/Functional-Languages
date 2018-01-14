@@ -13,5 +13,5 @@ data Expr a = Var a | Val Int | Add (Expr a) (Expr a)
 instance Functor Expr where
     -- fmap :: (a -> b) -> Expr a -> Expr b
     fmap _ (Val x) = Val x 
-   -- fmap f (Add lexp rexp) = Expr (fmap f lexp) + fmap f rexp
+    fmap f (Add lexp rexp) = Expr (fmap f lexp) + fmap f rexp
 
