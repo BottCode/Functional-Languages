@@ -26,21 +26,27 @@ type State = Int
 
 newtype ST a = S (State -> (a, State))
 
-app :: ST a = S (State -> (a,State))
+app :: ST a -> State -> (a,State)
 app (S st) x = st x
 
 instance Functor ST where
     -- fmap :: (a -> b) -> ST a -> ST b
-    fmap g st = do  
+    fmap f st = do  x <- st
+                    return (f x)
 
 instance Applicative ST where 
     -- pure :: a -> ST a
     pure x = S (\s -> (x,s))
 
     -- <*> :: ST (a -> b) -> ST a -> ST b
-    stf <*> stx = do 
+    stf <*> stx = do f <- stf
+                     x <- stx
+                     return (f x)
 
 instance Monad ST where
+    -- return :: a -> ST a
+    return = pure
+
     -- (>>=) :: ST a -> (a -> ST b) -> ST b
     st >>= f = S (\s -> let (x,s1) = app st s
                                      in app (f x) s1)
